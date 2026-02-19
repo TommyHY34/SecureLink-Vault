@@ -1,0 +1,379 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  min-height: 100vh;
+  color: #333;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── HEADER ─────────────────────────────────────────────────────────────── */
+.App-header {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem 2rem;
+  text-align: center;
+  color: white;
+}
+
+.App-header .logo {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.App-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.App-header .tagline {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  margin-top: 0.4rem;
+}
+
+/* ─── MAIN ───────────────────────────────────────────────────────────────── */
+main {
+  flex: 1;
+  padding: 3rem 1rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* ─── FOOTER ─────────────────────────────────────────────────────────────── */
+.App-footer {
+  background: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+/* ─── CARD ───────────────────────────────────────────────────────────────── */
+.sv-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  max-width: 620px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.sv-card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #1a1a2e;
+}
+
+/* ─── DROPZONE ───────────────────────────────────────────────────────────── */
+.dropzone {
+  border: 2px dashed #667eea;
+  border-radius: 14px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  background: #f8f8ff;
+  transition: all 0.2s ease;
+  margin-bottom: 1.5rem;
+  user-select: none;
+}
+
+.dropzone:hover,
+.dropzone.drag-over {
+  background: #eef0ff;
+  border-color: #764ba2;
+}
+
+.dropzone.has-file {
+  background: #f0fdf4;
+  border-color: #22c55e;
+  border-style: solid;
+}
+
+.dropzone-icon {
+  font-size: 3rem;
+  margin-bottom: 0.8rem;
+}
+
+.dropzone p {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.dropzone .file-name {
+  font-weight: 700;
+  color: #1a1a2e;
+  font-size: 1rem;
+  word-break: break-all;
+}
+
+.dropzone .file-size {
+  color: #888;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+}
+
+.dropzone .highlight {
+  color: #667eea;
+  font-weight: 600;
+}
+
+/* ─── OPTIONS ────────────────────────────────────────────────────────────── */
+.options-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.option-group {
+  flex: 1;
+}
+
+.option-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #444;
+  margin-bottom: 0.5rem;
+}
+
+.option-group select {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+.option-group select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+/* ─── PROGRESS ───────────────────────────────────────────────────────────── */
+.progress-wrap {
+  margin-bottom: 1rem;
+}
+
+.progress-label {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.progress-bar-bg {
+  background: #e5e7eb;
+  border-radius: 99px;
+  overflow: hidden;
+  height: 8px;
+}
+
+.progress-bar-fill {
+  height: 8px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  transition: width 0.3s ease;
+}
+
+.progress-bar-fill.green {
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+/* ─── BUTTONS ────────────────────────────────────────────────────────────── */
+.btn {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.btn-secondary:hover {
+  background: #e5e7eb;
+}
+
+.btn-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0;
+}
+
+.btn-row .btn {
+  flex: 1;
+}
+
+/* ─── ALERTS ─────────────────────────────────────────────────────────────── */
+.alert {
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.alert-error {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #b91c1c;
+}
+
+.alert-success {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  color: #166534;
+}
+
+.alert-info {
+  background: #eff6ff;
+  border: 1px solid #93c5fd;
+  color: #1d4ed8;
+}
+
+/* ─── INFO BOX ───────────────────────────────────────────────────────────── */
+.info-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.info-box .info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.2rem 0;
+}
+
+.info-box .info-label {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.info-box .info-value {
+  color: #1e293b;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* ─── LINK BOX ───────────────────────────────────────────────────────────── */
+.link-box {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 1rem;
+  font-size: 0.78rem;
+  word-break: break-all;
+  color: #334155;
+  margin-bottom: 1rem;
+  font-family: monospace;
+  line-height: 1.5;
+  max-height: 80px;
+  overflow-y: auto;
+}
+
+/* ─── SECURITY BADGE ─────────────────────────────────────────────────────── */
+.security-badge {
+  background: linear-gradient(135deg, #e0f2fe, #dbeafe);
+  border: 1px solid #93c5fd;
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  margin-top: 1.5rem;
+  font-size: 0.82rem;
+  color: #1e40af;
+  line-height: 1.5;
+}
+
+.security-badge.green {
+  background: linear-gradient(135deg, #dcfce7, #d1fae5);
+  border-color: #86efac;
+  color: #14532d;
+}
+
+/* ─── SUCCESS STATE ──────────────────────────────────────────────────────── */
+.success-icon {
+  text-align: center;
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.success-title {
+  text-align: center;
+  color: #16a34a;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.success-desc {
+  text-align: center;
+  color: #555;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+/* ─── CENTERED ───────────────────────────────────────────────────────────── */
+.text-center { text-align: center; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
