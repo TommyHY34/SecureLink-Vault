@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: securevault-backend
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./data:/app/data
+      - ./uploads:/app/uploads
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - SQLITE_PATH=/app/data/securevault.db
+      - UPLOAD_DIR=/app/uploads
+      - MAX_FILE_SIZE=52428800
+      - DEFAULT_MAX_DOWNLOADS=1
+      - DEFAULT_EXPIRY_HOURS=24
+      - RATE_LIMIT_MAX=200
+      - CLEANUP_INTERVAL_HOURS=1
+
+  frontend:
+    build: ./frontend
+    container_name: securevault-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - BACKEND_URL=http://backend:3001
+      - WDS_SOCKET_PORT=3000
+      - CHOKIDAR_USEPOLLING=true

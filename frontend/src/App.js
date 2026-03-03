@@ -4,7 +4,7 @@ import Upload from './components/Upload';
 import Download from './components/Download';
 import './styles/App.css';
 
-function App() {
+export default function App() {
   return (
     <Router>
       <div className="App">
@@ -13,14 +13,12 @@ function App() {
           <h1>SecureVault</h1>
           <p className="tagline">Partage de fichiers éphémères chiffrés</p>
         </header>
-
         <main>
           <Routes>
             <Route path="/" element={<Upload />} />
             <Route path="/download/:id" element={<Download />} />
           </Routes>
         </main>
-
         <footer className="App-footer">
           <p>Mastère 1 Expert Cybersécurité · Février 2026</p>
           <p>AES-256-GCM · Zero-knowledge · Éphémère</p>
@@ -29,5 +27,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;

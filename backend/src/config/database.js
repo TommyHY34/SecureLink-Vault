@@ -1,26 +1,26 @@
 const { Sequelize } = require('sequelize');
+const path = require('path');
+const fs = require('fs');
 require('dotenv').config();
 
-const sequelize = new Sequelize(
-  process.env.DB_NAME || 'securevault',
-  process.env.DB_USER || 'securevault_user',
-  process.env.DB_PASSWORD,
-  {
-    host: process.env.DB_HOST || 'localhost',
-    port: parseInt(process.env.DB_PORT) || 5432,
-    dialect: 'postgres',
-    logging: false,
-    pool: { max: 5, min: 0, acquire: 30000, idle: 10000 }
-  }
-);
+const dbPath = process.env.SQLITE_PATH || path.resolve('./data/securevault.db');
+
+// Créer le dossier si nécessaire
+fs.mkdirSync(path.dirname(dbPath), { recursive: true });
+
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: dbPath,
+  logging: false
+});
 
 const testConnection = async () => {
   try {
     await sequelize.authenticate();
-    console.log('✅ PostgreSQL connecté');
+    console.log('SQLite connecté: '+dbPath);
     return true;
-  } catch (error) {
-    console.error('❌ Connexion DB échouée:', error.message);
+  } catch (e) {
+    console.error('Connexion SQLite échouée:', e.message);
     return false;
   }
 };
