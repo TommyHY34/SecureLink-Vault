@@ -24,21 +24,21 @@ const downloadFile = async (req, res) => {
     file.downloadCount+=1; file.lastAccessedAt=new Date(); await file.save();
     console.log('Download: '+file.id+' '+file.downloadCount+'/'+file.maxDownloads);
     try { await AccessLog.create({ fileId: file.id, action: 'download', ipAddress: req.ip, userAgent: req.get('user-agent'), success: true }); } catch(_){}
-    if (file.downloadCount>=file.maxDownloads) setImmediate(()=>deleteFile(file));
     res.setHeader('Content-Type', file.mimeType||'application/octet-stream');
     res.setHeader('Content-Disposition', "attachment; filename*=UTF-8''"+encodeURIComponent(file.originalFilename));
-    res.setHeader('Content-Length', file.fileSize);
     res.setHeader('X-Remaining-Downloads', file.getRemainingDownloads());
+    // Ne pas définir Content-Length manuellement - laisser res.sendFile() le faire
+    console.log('Envoi fichier:', filePath, 'taille:', file.fileSize);
     res.sendFile(filePath, async (err) => {
-    if (err) {
-      if (!res.headersSent) res.status(500).json({ error: 'Erreur envoi' });
-      return;
-    }
-    // Supprimer SEULEMENT après que l'envoi est terminé
-    if (file.downloadCount >= file.maxDownloads) {
-      await deleteFile(file);
-    }
-  });
+      if (err) {
+        if (!res.headersSent) res.status(500).json({ error: 'Erreur envoi' });
+        return;
+      }
+      // Supprimer SEULEMENT après que l'envoi est terminé
+      if (file.downloadCount >= file.maxDownloads) {
+        await deleteFile(file);
+      }
+    });
   } catch(e) { console.error('Erreur download:', e.message); if(!res.headersSent) res.status(500).json({ error: 'Erreur serveur' }); }
 };
 
